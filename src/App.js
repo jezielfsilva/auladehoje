@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lista: [],
+    }
+  }
+
+  handlesubmit = ev => {
+    ev.preventDefault();
+    const { lista } = this.state
+
+    lista.push(this.inputText.value)
+
+    this.setState({
+      lista,
+    })
+    
+    this.inputText.value = ''
+  }
+
+  render () {
+    return (
+      <div className="box-form">
+        <form className="container-form" onSubmit={this.handlesubmit}>
+          <input className="text-box" type="text" ref={node => this.inputText = node}/>
+          <button className="click">adicionar</button>
+        </form>
+        {this.state.lista.map(item => <p className="text">{item}</p>)}
+      </div>
+    )
+  }
 }
+
 
 export default App;
